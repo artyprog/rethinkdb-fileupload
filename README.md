@@ -21,6 +21,7 @@
   npm install -g gulp
   bower install
   ```
+  Update `RETHINKDB_HOST` in `server/config.js`.
 
 2. **Run in development mode**
 
@@ -29,7 +30,7 @@
   ```
 
 3. **Build and Run in production mode**
-  
+
   ```
   gulp build
   npm start
