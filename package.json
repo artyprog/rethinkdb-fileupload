@@ -1,0 +1,48 @@
+{
+  "name": "messagingapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node build/server/server.js",
+    "build": "gulp build",
+    "watch": "gulp"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "co": "^4.6.0",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "lodash": "^4.6.1",
+    "morgan": "~1.6.1",
+    "rethinkdbdash": "^2.2.18",
+    "socket.io": "^1.4.5",
+    "source-map-support": "^0.4.0",
+    "thinky": "2.2.7"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.7.7",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.7",
+    "gulp-concat": "^2.6.0",
+    "gulp-file-cache": "0.0.1",
+    "gulp-if": "^2.0.1",
+    "gulp-inject": "^4.1.0",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-order": "^1.1.1",
+    "gulp-rev": "^7.0.0",
+    "gulp-rev-replace": "^0.4.3",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.1.0",
+    "gulp-watch": "^4.3.5",
+    "merge-stream": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}

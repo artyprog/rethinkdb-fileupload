@@ -1,0 +1,6 @@
+coverage
+npm-debug.log
+.gulp-cache
+node_modules
+build
+public/bower_components/

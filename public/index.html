@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="App">
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>AngularJS File Upload Demo with Socket.io and RethinkDB</title>
+
+    <!-- build:css vendor.css-->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+    <!-- endbuild -->
+
+    <!-- build:css app.css-->
+      <!-- inject:css -->
+      <link rel="stylesheet" href="/app/app.css">
+      <!-- endinject -->
+    <!-- endbuild -->
+
+    <base href="/">
+  </head>
+  <body>
+    <div ui-view=""></div>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- build:js vendor.js-->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower_components/angular-file-model/angular-file-model.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js app.js-->
+      <!-- inject:js -->
+      <script src="/app/app.js"></script>
+      <script src="/app/directives/drop.directive.js"></script>
+      <script src="/app/main/main.controller.js"></script>
+      <script src="/app/services/chunk-reader.service.js"></script>
+      <script src="/app/services/serial-file-reader.js"></script>
+      <script src="/app/services/socket.service.js"></script>
+      <script src="/app/services/upload.service.js"></script>
+      <!-- endinject -->
+    <!-- endbuild -->
+  </body>
+</html>

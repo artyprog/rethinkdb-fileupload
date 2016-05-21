@@ -1,0 +1,5 @@
+export default {
+  "RETHINKDB_HOST": "159.203.226.153",
+  "RETHINKDB_PORT": 28015,
+  "RETHINKDB_DATABASE": "app"
+}

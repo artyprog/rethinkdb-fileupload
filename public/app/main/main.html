@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <p>&nbsp;</p>
+  <div class="row">
+    <div drop class="drop text-center well">
+      <button title="Send File" ng-click="clickHiddenFile()" class="btn btn-default btn-lg">
+        Send File
+        <input type='file' name="file" file-model='file' style="display:none;">
+      </button>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+  <div class="row">
+    <div ng-repeat="uploader in uploads" class="col-xs-6 col-md-3">
+      <div>
+        {{uploader.getFile().name}} | {{ (uploader.getFile().size/1024).toFixed(2)}}KB | {{uploader.getProgress().toFixed(2)}}%
+        <button ng-click="cancelUpload(uploader)" class="close"><i class="glyphicon glyphicon-remove"></i></button>
+      </div>
+      <uib-progressbar value="uploader.getProgress()"><b>{{uploader.getProgress()}}%</b></uib-progressbar>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+  <div class="row">
+    <div id="message-{{message.id}}" class='message col-xs-6 col-md-3' ng-repeat="message in messages | orderBy:sort track by message.id  ">
+      <div class="well thumbnail">
+        <div class="media" ng-if="message.type.indexOf('image') > -1">
+          <a ng-href="/messages/{{message.id}}" target=_blank>
+            <img ng-src="/messages/{{message.id}}"/>
+          </a>
+        </div>
+         <div class="media" ng-if="message.type.indexOf('video') > -1">
+          <video controls height="200" width="350" preload="metadata" >
+            <source ng-src="/messages/{{message.id}}" type="{{message.type}}"/>
+          </video>
+        </div>
+        <div ng-if="message.type.indexOf('image') == -1 && message.type.indexOf('video') == -1 ">
+          <a ng-href="/messages/{{message.id}}" target=_blank>
+            <i class="fa fa-paperclip"></i> {{message.name}} | {{ (message.size/1024).toFixed(2) }}KB
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
