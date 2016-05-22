@@ -7,8 +7,9 @@ const path = require('path');
 
 const cache = new $.fileCache;
 
-gulp.task('compile', function () {
-  return gulp.src('server/**/*.js') // your ES2015 code
+// Transpile server side javascript
+gulp.task('build:server', function () {
+  return gulp.src('server/**/*.js') // ES2015 code
     .pipe(cache.filter()) // remember files
     .pipe($.sourcemaps.init())
     .pipe($.babel({
@@ -26,15 +27,13 @@ gulp.task('clean', _ => {
   .pipe($.clean());
 });
 
-gulp.task('build:server', ['compile']);
-
 gulp.task('build:public', ['clean'], _ => {
   const assetStream = gulp.src('public/*.html')
     .pipe($.useref({searchPath: 'public'}));
 
   const templateCacheStream = gulp.src('public/app/**/*.html')
     .pipe($.angularTemplatecache({
-      module : 'App',
+      module : 'App', // Angularjs Module Name
       root: 'app'
     }));
 
@@ -44,6 +43,7 @@ gulp.task('build:public', ['clean'], _ => {
       'template.js'
     ]))
     .pipe($.if( file => {
+      // only concat app.js and templates.js files to app.js
       return file.relative === 'templates.js' || file.relative  === 'app.js'? true: false;
     }, $.concat('app.js')))
     .pipe($.if('*.js', $.sourcemaps.init()))
@@ -63,7 +63,7 @@ gulp.task('inject', _=> {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('watch', ['compile', 'inject'], function () {
+gulp.task('watch', ['build:server', 'inject'], function () {
   return $.nodemon({
     script: 'build/server/server.js',
     watch: 'server/',
@@ -71,7 +71,7 @@ gulp.task('watch', ['compile', 'inject'], function () {
       DEBUG: 'app*',
       STATIC_ROOT: path.join(__dirname,'public')
     },
-    tasks: ['compile']
+    tasks: ['build:server']
   });
 });
 

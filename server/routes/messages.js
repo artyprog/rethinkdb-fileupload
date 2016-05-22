@@ -1,5 +1,5 @@
 import express from 'express';
-import Message from '../models/message';
+import Message from '../models/messages';
 
 const router = express.Router();
 
@@ -14,8 +14,8 @@ router.get('/:id', (req, res, next) => {
 });
 router.get('/', (req, res, next) => {
   Message.getAll(true,{index:'complete'}).then(function(docs) {
-      res.json(docs);
+    res.json(docs);
   }).catch(e => next(e));
 });
 
-module.exports = router;
+export default router;

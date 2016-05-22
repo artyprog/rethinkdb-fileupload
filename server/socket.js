@@ -1,13 +1,13 @@
 "use strict";
 
 import debug from 'debug';
-import routes from './routes/socket';
+import * as routes from './routes/socket';
 import Message from './models/message';
 
 const errorlog = debug('app:socket:error');
 const log = debug('app:socket:log');
 
-module.exports = app => {
+export default function(app) {
   app.io
     .on('connection', function(socket){
 
@@ -29,4 +29,4 @@ module.exports = app => {
       });
     })
     .catch( e => errorlog(e));
-};
+}
