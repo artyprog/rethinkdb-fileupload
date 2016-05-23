@@ -28,8 +28,8 @@ angular.module('App').factory('UploadService', ['SerialFileReader', function(Ser
     self._chunksCount = Math.ceil(self._file.size/self._CHUNKSIZE);
 
     setTimeout(function(){
-      //send file meta, receive file id
-      self._socket.emit('upload.start', meta, function(fileId) {
+      // start upload, receive file id
+      self._socket.emit('upload.start', function acknowledged(fileId) {
         self._fileId = fileId;
         //start file reading
         reader.readNext();
@@ -40,7 +40,7 @@ angular.module('App').factory('UploadService', ['SerialFileReader', function(Ser
       chunk.fileId = self._fileId;
       chunk.size = chunk.data.byteLength;
 
-      self._socket.emit('upload.data', chunk, function(){
+      self._socket.emit('upload.data', chunk, function acknowledged(){
         self.updateProgress();
         if(!self._cancelled)
           reader.readNext();
@@ -48,7 +48,9 @@ angular.module('App').factory('UploadService', ['SerialFileReader', function(Ser
     });
 
     reader.on('end', function (){
-      self._socket.emit('upload.finish', {fileId: self._fileId});
+      meta.id = self._fileId;
+      meta.chunkSize = self._CHUNKSIZE;
+      self._socket.emit('upload.finish', meta);
       if(typeof self.onend === 'function'){
         self.onend();
       }

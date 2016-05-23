@@ -19,8 +19,10 @@ angular.module( 'App')
     };
 
     $scope.$watch('file', function (file) {
-      if(file)
+      if(file){
         $scope.upload(file);
+      }
+
     });
 
     // received a new message
@@ -30,7 +32,8 @@ angular.module( 'App')
 
       var uploader = $scope.uploads.filter(function(upload){
         return upload.getFileId() === message.id;
-      })
+      });
+
       if(uploader.length)
         $scope.uploads.splice($scope.uploads.indexOf(uploader[0]),1);
     });
@@ -48,6 +51,9 @@ angular.module( 'App')
     };
     $scope.sort = function(message){
       return message.createdAt;
+    };
+    $scope.delete = function(message){
+      socket.emit('upload.delete', {id: message.id});
     };
 
     init();

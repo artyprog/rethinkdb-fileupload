@@ -1,8 +1,6 @@
-"use strict";
-
 import debug from 'debug';
 import * as routes from './routes/socket';
-import Message from './models/message';
+import Message from './models/messages';
 
 const errorlog = debug('app:socket:error');
 const log = debug('app:socket:log');
@@ -23,8 +21,15 @@ export default function(app) {
   Message.changes()
     .then((feed) => {
       feed.each( (e, doc) => {
-        if(doc.isSaved() && doc.getOldValue() && doc.complete){
+        // new message
+        if(doc.getOldValue() === null){
           app.io.emit('message.new', doc);
+        }
+        else if(e){
+          errorlog(e);
+        }
+        else{
+          log('unhandled feed');
         }
       });
     })

@@ -10,9 +10,11 @@ const Message = thinky.createModel("messages", {
   type: type.string(),
   name: type.string(),
   size: type.number(),
-  complete: type.boolean().default(false),
+  chunkSize: type.number(),
   createdAt: type.date().default(thinky.r.now())
 });
+
+// Stream file chunks
 Message.define("stream", function() {
   const transform = new Transform({
     transform: function(chunk, encoding, next) {
@@ -28,6 +30,12 @@ Message.define("stream", function() {
     ._query
     .pipe(transform);
 });
+
+// Genereate uuid
+Message.defineStatic("uuid", function(){
+  return thinky.r.uuid().run();
+});
+
 Message.hasMany(FsChunks, "chunks", "id", "fileId");
-Message.ensureIndex("complete");
+
 export default Message;

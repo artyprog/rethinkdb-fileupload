@@ -13,7 +13,7 @@ router.get('/:id', (req, res, next) => {
     .catch(e => next(e));
 });
 router.get('/', (req, res, next) => {
-  Message.getAll(true,{index:'complete'}).then(function(docs) {
+  Message.then(function(docs) {
     res.json(docs);
   }).catch(e => next(e));
 });
